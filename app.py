@@ -91,9 +91,13 @@ tools = [
     }
 ]
 
+servidor = "https://api.groq.com/openai/v1"
+key=os.getenv("GROQ_API_KEY")
+modelo="openai/gpt-oss-120b"
+
 client = OpenAI(
-    api_key=os.getenv("GROQ_API_KEY"),
-    base_url="https://api.groq.com/openai/v1"
+    api_key=key,
+    base_url=servidor
 )
 
 st.title("🤖 Sou a CidinhIA, sua assistente jurídica")
@@ -150,7 +154,7 @@ if prompt := st.chat_input("Digite sua mensagem..."):
         print(st.session_state.historico)
 
         resposta = client.chat.completions.create(
-            model="openai/gpt-oss-120b",
+            model=modelo,
             messages=st.session_state.historico,
             tools=tools,
         )
