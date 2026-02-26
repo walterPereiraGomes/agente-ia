@@ -17,3 +17,9 @@ def criar_arquivo(nome: str, conteudo: str):
     with open(nome, "w") as f:
         f.write(conteudo)
     return f"Arquivo {nome} criado com sucesso."
+
+def pegar_consumo_veiculo():
+    return 14
+
+def pegar_preco_atual_gasolina():
+    return 6.80

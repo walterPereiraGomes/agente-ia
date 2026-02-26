@@ -7,8 +7,12 @@ from openai import OpenAI
 from tools import calcular
 from tools import criar_arquivo
 from tools import pegar_hora
+from tools import pegar_consumo_veiculo
+from tools import pegar_preco_atual_gasolina
 
 load_dotenv()
+
+# tenho uma viagem de 400km pra fazer, geralmente viajo a 80km/h, a gasolina ta 6.70, meu carro faz 14km/l, se eu sair de casa agora, que horas chego ao meu destino, e quanto gasto?
 
 tools = [
     {
@@ -16,6 +20,30 @@ tools = [
         "function": {
             "name": "pegar_hora",
             "description": "Retorna a hora atual do sistema",
+            "parameters": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "pegar_consumo_veiculo",
+            "description": "Retorna o consumo do veículo, quantos quilometros ele faz por litro",
+            "parameters": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "pegar_preco_atual_gasolina",
+            "description": "Retorna o preço atual do litro da gasolina",
             "parameters": {
                 "type": "object",
                 "properties": {},
@@ -160,6 +188,20 @@ if prompt := st.chat_input("Digite sua mensagem..."):
             if nome_funcao == "pegar_hora":
                 print("========= TOOL DE PEGAR HORA CHAMADA ================")
                 resultado = pegar_hora()
+                print("Resultado:")
+                print(resultado)
+                print("======================================================")
+
+            if nome_funcao == "pegar_consumo_veiculo":
+                print("========= TOOL DE PEGAR CONSUMO DO VEÍCULO CHAMADA ================")
+                resultado = f"O carro faz {pegar_consumo_veiculo()}km/l"
+                print("Resultado:")
+                print(resultado)
+                print("======================================================")
+
+            if nome_funcao == "pegar_preco_atual_gasolina":
+                print("========= TOOL DE PEGAR PRECO ATUAL GASOLINA CHAMADA ================")
+                resultado = f"preço atual da gasoline é de R${pegar_preco_atual_gasolina()}"
                 print("Resultado:")
                 print(resultado)
                 print("======================================================")
